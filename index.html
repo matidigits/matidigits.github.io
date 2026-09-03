@@ -1,942 +1,975 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<title>Matidigits — Video Editor</title>
-
-<meta name="description" content="Matidigits — Video editor specialized in engaging and creative digital content.">
-
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap');
-
-    :root {
-        --cream: #f7f3ed;
-        --beige: #e8ddd0;
-        --dark-beige: #cbb9a6;
-        --brown: #6f5d4d;
-        --dark: #29251f;
-        --white: #fffdf9;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        scroll-behavior: smooth;
-    }
-
-    body {
-        background: var(--cream);
-        color: var(--dark);
-        font-family: "DM Sans", sans-serif;
-        line-height: 1.6;
-    }
-
-    /* NAVBAR */
-
-    nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        padding: 22px 6%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: rgba(247, 243, 237, 0.9);
-        backdrop-filter: blur(12px);
-        z-index: 1000;
-        border-bottom: 1px solid rgba(111, 93, 77, 0.12);
-    }
-
-    .logo {
-        font-family: "Playfair Display", serif;
-        font-size: 25px;
-        letter-spacing: 1px;
-        color: var(--dark);
-        text-decoration: none;
-    }
-
-    .nav-links {
-        display: flex;
-        gap: 28px;
-        align-items: center;
-        list-style: none;
-    }
-
-    .nav-links a {
-        text-decoration: none;
-        color: var(--dark);
-        font-size: 14px;
-        transition: 0.3s;
-    }
-
-    .nav-links a:hover {
-        color: var(--brown);
-    }
-
-    .language {
-        border: 1px solid var(--dark-beige);
-        background: transparent;
-        border-radius: 30px;
-        padding: 7px 12px;
-        cursor: pointer;
-        font-family: inherit;
-        color: var(--dark);
-    }
-
-    /* HERO */
-
-    .hero {
-        min-height: 100vh;
-        padding: 150px 8% 80px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 70px;
-    }
-
-    .hero-text {
-        max-width: 700px;
-        animation: fadeUp 1s ease;
-    }
-
-    .small-title {
-        color: var(--brown);
-        text-transform: uppercase;
-        letter-spacing: 4px;
-        font-size: 12px;
-        margin-bottom: 20px;
-    }
-
-    h1 {
-        font-family: "Playfair Display", serif;
-        font-weight: 400;
-        font-size: clamp(60px, 9vw, 120px);
-        line-height: 0.95;
-        margin-bottom: 30px;
-    }
-
-    .hero p {
-        max-width: 550px;
-        font-size: 18px;
-        color: #62584f;
-        margin-bottom: 35px;
-    }
-
-    .button {
-        display: inline-block;
-        padding: 14px 26px;
-        background: var(--dark);
-        color: white;
-        text-decoration: none;
-        border-radius: 30px;
-        font-size: 14px;
-        transition: 0.3s;
-    }
-
-    .button:hover {
-        background: var(--brown);
-        transform: translateY(-2px);
-    }
-
-    .hero-image {
-        width: min(400px, 90vw);
-        aspect-ratio: 4 / 5;
-        background: var(--beige);
-        border-radius: 220px 220px 20px 20px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        overflow: hidden;
-        flex-shrink: 0;
-    }
-
-    .hero-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    /* GENERAL */
-
-    section {
-        padding: 110px 8%;
-    }
-
-    .section-label {
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        font-size: 11px;
-        color: var(--brown);
-        margin-bottom: 12px;
-    }
-
-    .section-title {
-        font-family: "Playfair Display", serif;
-        font-size: clamp(40px, 6vw, 70px);
-        font-weight: 400;
-        margin-bottom: 55px;
-    }
-
-    /* ABOUT */
-
-    .about {
-        background: var(--white);
-    }
-
-    .about-grid {
-        display: grid;
-        grid-template-columns: 0.8fr 1.2fr;
-        gap: 80px;
-        align-items: center;
-    }
-
-    .about-photo {
-        min-height: 500px;
-        background: var(--beige);
-        border-radius: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--brown);
-        text-align: center;
-        padding: 30px;
-    }
-
-    .about-photo span {
-        font-family: "Playfair Display", serif;
-        font-size: 20px;
-    }
-
-    .about-text {
-        font-size: 17px;
-        color: #62584f;
-    }
-
-    .about-text p {
-        margin-bottom: 22px;
-    }
-
-    /* SERVICES */
-
-    .services-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-    }
-
-    .service {
-        background: var(--white);
-        padding: 38px;
-        min-height: 220px;
-        border: 1px solid rgba(111, 93, 77, 0.12);
-        transition: 0.3s;
-    }
-
-    .service:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(111, 93, 77, 0.08);
-    }
-
-    .service-number {
-        color: var(--brown);
-        font-size: 12px;
-        letter-spacing: 2px;
-    }
-
-    .service h3 {
-        font-family: "Playfair Display", serif;
-        font-size: 28px;
-        font-weight: 400;
-        margin: 25px 0 12px;
-    }
-
-    .service p {
-        color: #71665c;
-    }
-
-    /* PORTFOLIO */
-
-    .portfolio {
-        background: var(--white);
-    }
-
-    .portfolio-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 25px;
-    }
-
-    .project {
-        aspect-ratio: 16 / 10;
-        background: var(--beige);
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--brown);
-        transition: 0.4s;
-    }
-
-    .project:hover {
-        transform: scale(1.01);
-    }
-
-    .project-info {
-        text-align: center;
-    }
-
-    .project-info h3 {
-        font-family: "Playfair Display", serif;
-        font-size: 27px;
-        font-weight: 400;
-    }
-
-    .project-info p {
-        font-size: 13px;
-        margin-top: 5px;
-    }
-
-    /* SHOP */
-
-    .shop-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-    }
-
-    .product {
-        background: var(--white);
-        padding: 25px;
-        border: 1px solid rgba(111, 93, 77, 0.12);
-    }
-
-    .product-image {
-        aspect-ratio: 1 / 1;
-        background: var(--beige);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--brown);
-        margin-bottom: 22px;
-    }
-
-    .product h3 {
-        font-family: "Playfair Display", serif;
-        font-size: 25px;
-        font-weight: 400;
-    }
-
-    .product-price {
-        margin: 8px 0 18px;
-        color: var(--brown);
-    }
-
-    .product .button {
-        width: 100%;
-        text-align: center;
-    }
-
-    /* CONTACT */
-
-    .contact {
-        background: var(--dark);
-        color: var(--cream);
-    }
-
-    .contact .section-label {
-        color: var(--dark-beige);
-    }
-
-    .contact .section-title {
-        color: var(--cream);
-    }
-
-    .contact-container {
-        max-width: 750px;
-    }
-
-    form {
-        display: grid;
-        gap: 18px;
-    }
-
-    input,
-    textarea,
-    select {
-        width: 100%;
-        padding: 17px;
-        border: 1px solid rgba(255,255,255,0.2);
-        background: transparent;
-        color: var(--cream);
-        font-family: inherit;
-        font-size: 15px;
-        outline: none;
-    }
-
-    select option {
-        color: var(--dark);
-    }
-
-    textarea {
-        min-height: 180px;
-        resize: vertical;
-    }
-
-    input::placeholder,
-    textarea::placeholder {
-        color: #b9afa5;
-    }
-
-    form .button {
-        border: none;
-        cursor: pointer;
-        background: var(--cream);
-        color: var(--dark);
-        width: fit-content;
-    }
-
-    /* FOOTER */
-
-    footer {
-        background: var(--dark);
-        border-top: 1px solid rgba(255,255,255,0.1);
-        color: #aaa099;
-        padding: 30px 8%;
-        display: flex;
-        justify-content: space-between;
-        gap: 20px;
-        font-size: 13px;
-    }
-
-    /* ANIMATION */
-
-    @keyframes fadeUp {
-        from {
-            opacity: 0;
-            transform: translateY(25px);
+    <title>Matidigits — Video Editor</title>
+
+    <meta name="description" content="Matidigits — Video editor specialized in engaging and creative digital content.">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap');
+
+        :root {
+            --cream: #f7f3ed;
+            --beige: #e8ddd0;
+            --dark-beige: #cbb9a6;
+            --brown: #6f5d4d;
+            --dark: #29251f;
+            --white: #fffdf9;
         }
 
-        to {
-            opacity: 1;
-            transform: translateY(0);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
         }
-    }
 
-    /* MOBILE */
+        body {
+            background: var(--cream);
+            color: var(--dark);
+            font-family: "DM Sans", sans-serif;
+            line-height: 1.6;
+        }
 
-    @media (max-width: 800px) {
+        /* NAVBAR */
 
         nav {
-            padding: 18px 5%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 22px 6%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(247, 243, 237, 0.9);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(111, 93, 77, 0.12);
+        }
+
+        .logo {
+            font-family: "Playfair Display", serif;
+            font-size: 25px;
+            letter-spacing: 1px;
+            color: var(--dark);
+            text-decoration: none;
         }
 
         .nav-links {
-            gap: 12px;
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            list-style: none;
         }
 
         .nav-links a {
-            display: none;
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 14px;
+            transition: 0.3s;
         }
 
+        .nav-links a:hover {
+            color: var(--brown);
+        }
+
+        .language {
+            border: 1px solid var(--dark-beige);
+            background: transparent;
+            border-radius: 30px;
+            padding: 7px 12px;
+            cursor: pointer;
+            font-family: inherit;
+            color: var(--dark);
+        }
+
+        /* HERO */
+
         .hero {
-            flex-direction: column;
-            align-items: flex-start;
-            padding-top: 130px;
+            min-height: 100vh;
+            padding: 150px 8% 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 70px;
+        }
+
+        .hero-text {
+            max-width: 700px;
+            animation: fadeUp 1s ease;
+        }
+
+        .small-title {
+            color: var(--brown);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 12px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-family: "Playfair Display", serif;
+            font-weight: 400;
+            font-size: clamp(60px, 9vw, 120px);
+            line-height: 0.95;
+            margin-bottom: 30px;
+        }
+
+        .hero p {
+            max-width: 550px;
+            font-size: 18px;
+            color: #62584f;
+            margin-bottom: 35px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 14px 26px;
+            background: var(--dark);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .button:hover {
+            background: var(--brown);
+            transform: translateY(-2px);
         }
 
         .hero-image {
-            width: 100%;
-            max-width: 350px;
+            width: min(400px, 90vw);
+            aspect-ratio: 4 / 5;
+            background: var(--beige);
+            border-radius: 220px 220px 20px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--brown);
+            text-align: center;
+            padding: 30px;
+            flex-shrink: 0;
+        }
+
+        .hero-image span {
+            font-family: "Playfair Display", serif;
+            font-size: 22px;
+        }
+
+        /* GENERAL */
+
+        section {
+            padding: 110px 8%;
+        }
+
+        .section-label {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 11px;
+            color: var(--brown);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-family: "Playfair Display", serif;
+            font-size: clamp(40px, 6vw, 70px);
+            font-weight: 400;
+            margin-bottom: 55px;
+        }
+
+        /* ABOUT */
+
+        .about {
+            background: var(--white);
         }
 
         .about-grid {
-            grid-template-columns: 1fr;
-            gap: 35px;
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 80px;
+            align-items: center;
         }
 
         .about-photo {
-            min-height: 400px;
+            min-height: 500px;
+            background: var(--beige);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brown);
+            text-align: center;
+            padding: 30px;
         }
 
-        .services-grid,
-        .portfolio-grid {
-            grid-template-columns: 1fr;
+        .about-photo span {
+            font-family: "Playfair Display", serif;
+            font-size: 20px;
         }
+
+        .about-text {
+            font-size: 17px;
+            color: #62584f;
+        }
+
+        .about-text p {
+            margin-bottom: 22px;
+        }
+
+        /* SERVICES */
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .service {
+            background: var(--white);
+            padding: 38px;
+            min-height: 220px;
+            border: 1px solid rgba(111, 93, 77, 0.12);
+            transition: 0.3s;
+        }
+
+        .service:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(111, 93, 77, 0.08);
+        }
+
+        .service-number {
+            color: var(--brown);
+            font-size: 12px;
+            letter-spacing: 2px;
+        }
+
+        .service h3 {
+            font-family: "Playfair Display", serif;
+            font-size: 28px;
+            font-weight: 400;
+            margin: 25px 0 12px;
+        }
+
+        .service p {
+            color: #71665c;
+        }
+
+        /* PORTFOLIO */
+
+        .portfolio {
+            background: var(--white);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .project {
+            aspect-ratio: 16 / 10;
+            background: var(--beige);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brown);
+            transition: 0.4s;
+        }
+
+        .project:hover {
+            transform: scale(1.01);
+        }
+
+        .project-info {
+            text-align: center;
+        }
+
+        .project-info h3 {
+            font-family: "Playfair Display", serif;
+            font-size: 27px;
+            font-weight: 400;
+        }
+
+        .project-info p {
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        /* SHOP */
 
         .shop-grid {
-            grid-template-columns: 1fr;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
         }
 
-        section {
-            padding: 80px 6%;
+        .product {
+            background: var(--white);
+            padding: 25px;
+            border: 1px solid rgba(111, 93, 77, 0.12);
         }
+
+        .product-image {
+            aspect-ratio: 1 / 1;
+            background: var(--beige);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brown);
+            margin-bottom: 22px;
+        }
+
+        .product h3 {
+            font-family: "Playfair Display", serif;
+            font-size: 25px;
+            font-weight: 400;
+        }
+
+        .product-price {
+            margin: 8px 0 18px;
+            color: var(--brown);
+        }
+
+        .product .button {
+            width: 100%;
+            text-align: center;
+        }
+
+        /* CONTACT */
+
+        .contact {
+            background: var(--dark);
+            color: var(--cream);
+        }
+
+        .contact .section-label {
+            color: var(--dark-beige);
+        }
+
+        .contact .section-title {
+            color: var(--cream);
+        }
+
+        .contact-container {
+            max-width: 750px;
+        }
+
+        form {
+            display: grid;
+            gap: 18px;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 17px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: transparent;
+            color: var(--cream);
+            font-family: inherit;
+            font-size: 15px;
+            outline: none;
+        }
+
+        select option {
+            color: var(--dark);
+        }
+
+        textarea {
+            min-height: 180px;
+            resize: vertical;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #b9afa5;
+        }
+
+        form .button {
+            border: none;
+            cursor: pointer;
+            background: var(--cream);
+            color: var(--dark);
+            width: fit-content;
+        }
+
+        /* FOOTER */
 
         footer {
-            flex-direction: column;
+            background: var(--dark);
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #aaa099;
+            padding: 30px 8%;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            font-size: 13px;
         }
-    }
-</style>
-```
 
+        /* ANIMATION */
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(25px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            nav {
+                padding: 18px 5%;
+            }
+
+            .nav-links {
+                gap: 12px;
+            }
+
+            .nav-links a {
+                display: none;
+            }
+
+            .hero {
+                flex-direction: column;
+                align-items: flex-start;
+                padding-top: 130px;
+            }
+
+            .hero-image {
+                width: 100%;
+                max-width: 350px;
+                align-self: center;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 35px;
+            }
+
+            .about-photo {
+                min-height: 400px;
+            }
+
+            .services-grid,
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .shop-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 80px 6%;
+            }
+
+            footer {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-```
-<!-- NAVIGATION -->
+    <!-- NAVIGATION -->
 
-<nav>
-    <a href="#home" class="logo">Matidigits</a>
+    <nav>
+        <a href="#home" class="logo">Matidigits</a>
 
-    <ul class="nav-links">
-        <li><a href="#about" data-en="About" data-it="Chi sono">About</a></li>
-        <li><a href="#services" data-en="Services" data-it="Servizi">Services</a></li>
-        <li><a href="#portfolio" data-en="Portfolio" data-it="Portfolio">Portfolio</a></li>
-        <li><a href="#shop" data-en="Shop" data-it="Shop">Shop</a></li>
-        <li><a href="#contact" data-en="Contact" data-it="Contatti">Contact</a></li>
-        <li>
-            <button class="language" onclick="changeLanguage()">IT</button>
-        </li>
-    </ul>
-</nav>
+        <ul class="nav-links">
+            <li><a href="#about" data-en="About" data-it="Chi sono">About</a></li>
+            <li><a href="#services" data-en="Services" data-it="Servizi">Services</a></li>
+            <li><a href="#portfolio" data-en="Portfolio" data-it="Portfolio">Portfolio</a></li>
+            <li><a href="#shop" data-en="Shop" data-it="Shop">Shop</a></li>
+            <li><a href="#contact" data-en="Contact" data-it="Contatti">Contact</a></li>
+            <li>
+                <button class="language" onclick="changeLanguage()">IT</button>
+            </li>
+        </ul>
+    </nav>
 
-<!-- HERO -->
 
-<main>
+    <!-- HERO -->
 
-    <section class="hero" id="home">
+    <main>
 
-        <div class="hero-text">
+        <section class="hero" id="home">
 
-            <div class="small-title"
-                 data-en="Video Editor & Creative"
-                 data-it="Video Editor & Creative">
-                Video Editor & Creative
+            <div class="hero-text">
+
+                <div class="small-title"
+                     data-en="Video Editor & Creative"
+                     data-it="Video Editor & Creative">
+                    Video Editor & Creative
+                </div>
+
+                <h1>Matidigits</h1>
+
+                <p data-en="I transform raw footage and ideas into engaging visual stories."
+                   data-it="Trasformo footage e idee in storie visive coinvolgenti.">
+                    I transform raw footage and ideas into engaging visual stories.
+                </p>
+
+                <a href="#portfolio"
+                   class="button"
+                   data-en="Explore my work"
+                   data-it="Scopri i miei lavori">
+                    Explore my work
+                </a>
+
             </div>
 
-            <h1>Matidigits</h1>
 
-            <p data-en="I transform raw footage and ideas into engaging visual stories."
-               data-it="Trasformo footage e idee in storie visive coinvolgenti.">
-                I transform raw footage and ideas into engaging visual stories.
-            </p>
-
-            <a href="#portfolio"
-               class="button"
-               data-en="Explore my work"
-               data-it="Scopri i miei lavori">
-                Explore my work
-            </a>
-
-        </div>
-
-        <div class="hero-image">
-            <img src="logo matidigits.jpeg" alt="Matidigits">
-        </div>
-
-    </section>
-
-    <!-- ABOUT -->
-
-    <section class="about" id="about">
-
-        <div class="section-label"
-             data-en="About me"
-             data-it="Chi sono">
-            About me
-        </div>
-
-        <h2 class="section-title"
-            data-en="Behind the edits."
-            data-it="Dietro ogni montaggio.">
-            Behind the edits.
-        </h2>
-
-        <div class="about-grid">
-
-            <div class="about-photo">
+            <div class="hero-image">
                 <span>
-                    Your selfie<br>
+                    Your photo<br>
                     goes here
                 </span>
             </div>
 
-            <div class="about-text">
+        </section>
 
-                <p data-en="Hi! I'm Matidigits, a video editor passionate about digital content, storytelling and visual creativity."
-                   data-it="Ciao! Sono Matidigits, una video editor appassionata di contenuti digitali, storytelling e creatività visiva.">
-                    Hi! I'm Matidigits, a video editor passionate about digital content, storytelling and visual creativity.
-                </p>
 
-                <p data-en="I love taking raw footage and turning it into content that feels dynamic, engaging and personal."
-                   data-it="Mi piace prendere footage grezzo e trasformarlo in contenuti dinamici, coinvolgenti e personali.">
-                    I love taking raw footage and turning it into content that feels dynamic, engaging and personal.
-                </p>
+        <!-- ABOUT -->
 
-                <p data-en="Whether you are a YouTuber, content creator or simply have an idea you want to bring to life, I'm here to help."
-                   data-it="Che tu sia uno YouTuber, un content creator o abbia semplicemente un'idea che vuoi trasformare in realtà, sono qui per aiutarti.">
-                    Whether you are a YouTuber, content creator or simply have an idea you want to bring to life, I'm here to help.
-                </p>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- SERVICES -->
-
-    <section id="services">
-
-        <div class="section-label"
-             data-en="What I offer"
-             data-it="Cosa offro">
-            What I offer
-        </div>
-
-        <h2 class="section-title"
-            data-en="Services"
-            data-it="Servizi">
-            Services
-        </h2>
-
-        <div class="services-grid">
-
-            <div class="service">
-                <span class="service-number">01</span>
-                <h3 data-en="YouTube Editing"
-                    data-it="Editing YouTube">
-                    YouTube Editing
-                </h3>
-                <p data-en="Dynamic and engaging edits designed to keep your audience watching."
-                   data-it="Montaggi dinamici e coinvolgenti pensati per mantenere alta l'attenzione del pubblico.">
-                    Dynamic and engaging edits designed to keep your audience watching.
-                </p>
-            </div>
-
-            <div class="service">
-                <span class="service-number">02</span>
-                <h3 data-en="Short Form Content"
-                    data-it="Contenuti Short Form">
-                    Short Form Content
-                </h3>
-                <p data-en="TikToks, Reels and Shorts with fast pacing, captions, effects and personality."
-                   data-it="TikTok, Reel e Shorts con ritmo, sottotitoli, effetti e personalità.">
-                    TikToks, Reels and Shorts with fast pacing, captions, effects and personality.
-                </p>
-            </div>
-
-            <div class="service">
-                <span class="service-number">03</span>
-                <h3 data-en="Intro & Outro"
-                    data-it="Intro & Outro">
-                    Intro & Outro
-                </h3>
-                <p data-en="Custom intros and outros created to match your identity and content."
-                   data-it="Intro e outro personalizzate create in base alla tua identità e ai tuoi contenuti.">
-                    Custom intros and outros created to match your identity and content.
-                </p>
-            </div>
-
-            <div class="service">
-                <span class="service-number">04</span>
-                <h3 data-en="Custom Projects"
-                    data-it="Progetti personalizzati">
-                    Custom Projects
-                </h3>
-                <p data-en="Have a specific idea? Let's create something that fits your vision."
-                   data-it="Hai un'idea particolare? Creiamo qualcosa che rispecchi la tua visione.">
-                    Have a specific idea? Let's create something that fits your vision.
-                </p>
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- PORTFOLIO -->
-
-    <section class="portfolio" id="portfolio">
-
-        <div class="section-label"
-             data-en="Selected work"
-             data-it="Lavori selezionati">
-            Selected work
-        </div>
-
-        <h2 class="section-title"
-            data-en="My creations."
-            data-it="Le mie creazioni.">
-            My creations.
-        </h2>
-
-        <div class="portfolio-grid">
-
-            <div class="project">
-                <div class="project-info">
-                    <h3>Project 01</h3>
-                    <p>YouTube Edit</p>
-                </div>
-            </div>
-
-            <div class="project">
-                <div class="project-info">
-                    <h3>Project 02</h3>
-                    <p>Short Form</p>
-                </div>
-            </div>
-
-            <div class="project">
-                <div class="project-info">
-                    <h3>Project 03</h3>
-                    <p>Creative Edit</p>
-                </div>
-            </div>
-
-            <div class="project">
-                <div class="project-info">
-                    <h3>Project 04</h3>
-                    <p>Social Media</p>
-                </div>
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- SHOP -->
-
-    <section id="shop">
-
-        <div class="section-label"
-             data-en="Digital products"
-             data-it="Prodotti digitali">
-            Digital products
-        </div>
-
-        <h2 class="section-title"
-            data-en="The shop."
-            data-it="Lo shop.">
-            The shop.
-        </h2>
-
-        <div class="shop-grid">
-
-            <div class="product">
-                <div class="product-image">
-                    INTRO 01
-                </div>
-
-                <h3>YouTube Intro</h3>
-
-                <div class="product-price">€ —</div>
-
-                <a href="#contact"
-                   class="button"
-                   data-en="Request"
-                   data-it="Richiedi">
-                    Request
-                </a>
-            </div>
-
-            <div class="product">
-                <div class="product-image">
-                    OUTRO 01
-                </div>
-
-                <h3>YouTube Outro</h3>
-
-                <div class="product-price">€ —</div>
-
-                <a href="#contact"
-                   class="button"
-                   data-en="Request"
-                   data-it="Richiedi">
-                    Request
-                </a>
-            </div>
-
-            <div class="product">
-                <div class="product-image">
-                    PACK 01
-                </div>
-
-                <h3>Creator Pack</h3>
-
-                <div class="product-price">€ —</div>
-
-                <a href="#contact"
-                   class="button"
-                   data-en="Request"
-                   data-it="Richiedi">
-                    Request
-                </a>
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- CONTACT -->
-
-    <section class="contact" id="contact">
-
-        <div class="contact-container">
+        <section class="about" id="about">
 
             <div class="section-label"
-                 data-en="Let's work together"
-                 data-it="Lavoriamo insieme">
-                Let's work together
+                 data-en="About me"
+                 data-it="Chi sono">
+                About me
             </div>
 
             <h2 class="section-title"
-                data-en="Tell me about your project."
-                data-it="Parlami del tuo progetto.">
-                Tell me about your project.
+                data-en="Behind the edits."
+                data-it="Dietro ogni montaggio.">
+                Behind the edits.
             </h2>
 
-            <form onsubmit="sendMessage(event)">
+            <div class="about-grid">
 
-                <input
-                    type="text"
-                    id="name"
-                    placeholder="Full name"
-                    required
-                >
+                <div class="about-photo">
+                    <span>
+                        Your selfie<br>
+                        goes here
+                    </span>
+                </div>
 
-                <input
-                    type="text"
-                    id="youtube"
-                    placeholder="YouTube channel / @username"
-                >
+                <div class="about-text">
 
-                <input
-                    type="email"
-                    id="email"
-                    placeholder="Email address"
-                    required
-                >
+                    <p data-en="Hi! I'm Matidigits, a video editor passionate about digital content, storytelling and visual creativity."
+                       data-it="Ciao! Sono Matidigits, una video editor appassionata di contenuti digitali, storytelling e creatività visiva.">
+                        Hi! I'm Matidigits, a video editor passionate about digital content, storytelling and visual creativity.
+                    </p>
 
-                <select id="service">
-                    <option value="YouTube Editing">YouTube Editing</option>
-                    <option value="Short Form Content">Short Form Content</option>
-                    <option value="Intro / Outro">Intro / Outro</option>
-                    <option value="Custom Project">Custom Project</option>
-                </select>
+                    <p data-en="I love taking raw footage and turning it into content that feels dynamic, engaging and personal."
+                       data-it="Mi piace prendere footage grezzo e trasformarlo in contenuti dinamici, coinvolgenti e personali.">
+                        I love taking raw footage and turning it into content that feels dynamic, engaging and personal.
+                    </p>
 
-                <textarea
-                    id="message"
-                    placeholder="Tell me about your project..."
-                    required
-                ></textarea>
+                    <p data-en="Whether you are a YouTuber, content creator or simply have an idea you want to bring to life, I'm here to help."
+                       data-it="Che tu sia uno YouTuber, un content creator o abbia semplicemente un'idea che vuoi trasformare in realtà, sono qui per aiutarti.">
+                        Whether you are a YouTuber, content creator or simply have an idea you want to bring to life, I'm here to help.
+                    </p>
 
-                <button
-                    type="submit"
-                    class="button"
-                    data-en="Send request"
-                    data-it="Invia richiesta">
-                    Send request
-                </button>
+                </div>
 
-            </form>
+            </div>
 
-        </div>
+        </section>
 
-    </section>
 
-</main>
+        <!-- SERVICES -->
 
-<!-- FOOTER -->
+        <section id="services">
 
-<footer>
-    <div>© 2026 Matidigits</div>
-    <div>Video Editor & Creative</div>
-</footer>
+            <div class="section-label"
+                 data-en="What I offer"
+                 data-it="Cosa offro">
+                What I offer
+            </div>
 
-<script>
+            <h2 class="section-title"
+                data-en="Services"
+                data-it="Servizi">
+                Services
+            </h2>
 
-    let currentLanguage = "en";
+            <div class="services-grid">
 
-    function changeLanguage() {
+                <div class="service">
+                    <span class="service-number">01</span>
+                    <h3 data-en="YouTube Editing"
+                        data-it="Editing YouTube">
+                        YouTube Editing
+                    </h3>
+                    <p data-en="Dynamic and engaging edits designed to keep your audience watching."
+                       data-it="Montaggi dinamici e coinvolgenti pensati per mantenere alta l'attenzione del pubblico.">
+                        Dynamic and engaging edits designed to keep your audience watching.
+                    </p>
+                </div>
 
-        currentLanguage = currentLanguage === "en" ? "it" : "en";
+                <div class="service">
+                    <span class="service-number">02</span>
+                    <h3 data-en="Short Form Content"
+                        data-it="Contenuti Short Form">
+                        Short Form Content
+                    </h3>
+                    <p data-en="TikToks, Reels and Shorts with fast pacing, captions, effects and personality."
+                       data-it="TikTok, Reel e Shorts con ritmo, sottotitoli, effetti e personalità.">
+                        TikToks, Reels and Shorts with fast pacing, captions, effects and personality.
+                    </p>
+                </div>
 
-        document.documentElement.lang = currentLanguage;
+                <div class="service">
+                    <span class="service-number">03</span>
+                    <h3 data-en="Intro & Outro"
+                        data-it="Intro & Outro">
+                        Intro & Outro
+                    </h3>
+                    <p data-en="Custom intros and outros created to match your identity and content."
+                       data-it="Intro e outro personalizzate create in base alla tua identità e ai tuoi contenuti.">
+                        Custom intros and outros created to match your identity and content.
+                    </p>
+                </div>
 
-        document.querySelector(".language").textContent =
-            currentLanguage === "en" ? "IT" : "EN";
+                <div class="service">
+                    <span class="service-number">04</span>
+                    <h3 data-en="Custom Projects"
+                        data-it="Progetti personalizzati">
+                        Custom Projects
+                    </h3>
+                    <p data-en="Have a specific idea? Let's create something that fits your vision."
+                       data-it="Hai un'idea particolare? Creiamo qualcosa che rispecchi la tua visione.">
+                        Have a specific idea? Let's create something that fits your vision.
+                    </p>
+                </div>
 
-        document.querySelectorAll("[data-en]").forEach(element => {
+            </div>
 
-            element.textContent =
-                element.getAttribute("data-" + currentLanguage);
+        </section>
 
-        });
 
-        const placeholdersEN = {
-            name: "Full name",
-            youtube: "YouTube channel / @username",
-            email: "Email address",
-            message: "Tell me about your project..."
-        };
+        <!-- PORTFOLIO -->
 
-        const placeholdersIT = {
-            name: "Nome e cognome",
-            youtube: "Canale YouTube / @username",
-            email: "Indirizzo email",
-            message: "Parlami del tuo progetto..."
-        };
+        <section class="portfolio" id="portfolio">
 
-        const placeholders =
-            currentLanguage === "en"
-                ? placeholdersEN
-                : placeholdersIT;
+            <div class="section-label"
+                 data-en="Selected work"
+                 data-it="Lavori selezionati">
+                Selected work
+            </div>
 
-        document.getElementById("name").placeholder = placeholders.name;
-        document.getElementById("youtube").placeholder = placeholders.youtube;
-        document.getElementById("email").placeholder = placeholders.email;
-        document.getElementById("message").placeholder = placeholders.message;
-    }
+            <h2 class="section-title"
+                data-en="My creations."
+                data-it="Le mie creazioni.">
+                My creations.
+            </h2>
 
-    function sendMessage(event) {
+            <div class="portfolio-grid">
 
-        event.preventDefault();
+                <div class="project">
+                    <div class="project-info">
+                        <h3>Project 01</h3>
+                        <p>YouTube Edit</p>
+                    </div>
+                </div>
 
-        const name = document.getElementById("name").value;
-        const youtube = document.getElementById("youtube").value;
-        const email = document.getElementById("email").value;
-        const service = document.getElementById("service").value;
-        const message = document.getElementById("message").value;
+                <div class="project">
+                    <div class="project-info">
+                        <h3>Project 02</h3>
+                        <p>Short Form</p>
+                    </div>
+                </div>
 
-        const subject =
-            encodeURIComponent("New project request — Matidigits");
+                <div class="project">
+                    <div class="project-info">
+                        <h3>Project 03</h3>
+                        <p>Creative Edit</p>
+                    </div>
+                </div>
 
-        const body =
-            encodeURIComponent(
-                "Name: " + name +
-                "\nYouTube: " + youtube +
-                "\nEmail: " + email +
-                "\nService: " + service +
-                "\n\nMessage:\n" + message
-            );
+                <div class="project">
+                    <div class="project-info">
+                        <h3>Project 04</h3>
+                        <p>Social Media</p>
+                    </div>
+                </div>
 
-        window.location.href =
-            "mailto:YOUR-EMAIL-HERE@example.com?subject=" +
-            subject +
-            "&body=" +
-            body;
-    }
+            </div>
 
-</script>
-```
+        </section>
+
+
+        <!-- SHOP -->
+
+        <section id="shop">
+
+            <div class="section-label"
+                 data-en="Digital products"
+                 data-it="Prodotti digitali">
+                Digital products
+            </div>
+
+            <h2 class="section-title"
+                data-en="The shop."
+                data-it="Lo shop.">
+                The shop.
+            </h2>
+
+            <div class="shop-grid">
+
+                <div class="product">
+
+                    <div class="product-image">
+                        INTRO 01
+                    </div>
+
+                    <h3>YouTube Intro</h3>
+
+                    <div class="product-price">€ —</div>
+
+                    <a href="#contact"
+                       class="button"
+                       data-en="Request"
+                       data-it="Richiedi">
+                        Request
+                    </a>
+
+                </div>
+
+
+                <div class="product">
+
+                    <div class="product-image">
+                        OUTRO 01
+                    </div>
+
+                    <h3>YouTube Outro</h3>
+
+                    <div class="product-price">€ —</div>
+
+                    <a href="#contact"
+                       class="button"
+                       data-en="Request"
+                       data-it="Richiedi">
+                        Request
+                    </a>
+
+                </div>
+
+
+                <div class="product">
+
+                    <div class="product-image">
+                        PACK 01
+                    </div>
+
+                    <h3>Creator Pack</h3>
+
+                    <div class="product-price">€ —</div>
+
+                    <a href="#contact"
+                       class="button"
+                       data-en="Request"
+                       data-it="Richiedi">
+                        Request
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONTACT -->
+
+        <section class="contact" id="contact">
+
+            <div class="contact-container">
+
+                <div class="section-label"
+                     data-en="Let's work together"
+                     data-it="Lavoriamo insieme">
+                    Let's work together
+                </div>
+
+                <h2 class="section-title"
+                    data-en="Tell me about your project."
+                    data-it="Parlami del tuo progetto.">
+                    Tell me about your project.
+                </h2>
+
+
+                <form onsubmit="sendMessage(event)">
+
+                    <input
+                        type="text"
+                        id="name"
+                        placeholder="Full name"
+                        required
+                    >
+
+                    <input
+                        type="text"
+                        id="youtube"
+                        placeholder="YouTube channel / @username"
+                    >
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="Email address"
+                        required
+                    >
+
+                    <select id="service">
+
+                        <option value="YouTube Editing">
+                            YouTube Editing
+                        </option>
+
+                        <option value="Short Form Content">
+                            Short Form Content
+                        </option>
+
+                        <option value="Intro / Outro">
+                            Intro / Outro
+                        </option>
+
+                        <option value="Custom Project">
+                            Custom Project
+                        </option>
+
+                    </select>
+
+                    <textarea
+                        id="message"
+                        placeholder="Tell me about your project..."
+                        required
+                    ></textarea>
+
+                    <button
+                        type="submit"
+                        class="button"
+                        data-en="Send request"
+                        data-it="Invia richiesta">
+                        Send request
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div>© 2026 Matidigits</div>
+
+        <div>Video Editor & Creative</div>
+
+    </footer>
+
+
+    <script>
+
+        let currentLanguage = "en";
+
+        function changeLanguage() {
+
+            currentLanguage = currentLanguage === "en" ? "it" : "en";
+
+            document.documentElement.lang = currentLanguage;
+
+            document.querySelector(".language").textContent =
+                currentLanguage === "en" ? "IT" : "EN";
+
+            document.querySelectorAll("[data-en]").forEach(element => {
+
+                element.textContent =
+                    element.getAttribute("data-" + currentLanguage);
+
+            });
+
+            const placeholdersEN = {
+                name: "Full name",
+                youtube: "YouTube channel / @username",
+                email: "Email address",
+                message: "Tell me about your project..."
+            };
+
+            const placeholdersIT = {
+                name: "Nome e cognome",
+                youtube: "Canale YouTube / @username",
+                email: "Indirizzo email",
+                message: "Parlami del tuo progetto..."
+            };
+
+            const placeholders =
+                currentLanguage === "en"
+                    ? placeholdersEN
+                    : placeholdersIT;
+
+            document.getElementById("name").placeholder = placeholders.name;
+            document.getElementById("youtube").placeholder = placeholders.youtube;
+            document.getElementById("email").placeholder = placeholders.email;
+            document.getElementById("message").placeholder = placeholders.message;
+        }
+
+
+        function sendMessage(event) {
+
+            event.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const youtube = document.getElementById("youtube").value;
+            const email = document.getElementById("email").value;
+            const service = document.getElementById("service").value;
+            const message = document.getElementById("message").value;
+
+            const subject =
+                encodeURIComponent("New project request — Matidigits");
+
+            const body =
+                encodeURIComponent(
+                    "Name: " + name +
+                    "\nYouTube: " + youtube +
+                    "\nEmail: " + email +
+                    "\nService: " + service +
+                    "\n\nMessage:\n" + message
+                );
+
+            window.location.href =
+                "mailto:YOUR-EMAIL-HERE@example.com?subject=" +
+                subject +
+                "&body=" +
+                body;
+        }
+
+    </script>
 
 </body>
 </html>
-
